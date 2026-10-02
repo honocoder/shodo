@@ -27,7 +27,8 @@ Motion, Lucide, date-fns, docx, Vitest, and vite-plugin-pwa.
 
 ## Run locally
 
-Requirements: Node 20+ and pnpm 10+.
+Requirements: Node 22+ and pnpm 10+. The repository pins these through `.nvmrc`,
+`engines.node`, and `packageManager` so Nixpacks/Dokploy use the same toolchain.
 
 ```bash
 pnpm install
