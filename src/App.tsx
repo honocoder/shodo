@@ -593,6 +593,7 @@ function Sidebar({
 function WritingEditor({
   scene,
   content,
+  chapterTitle,
   preferences,
   typewriter,
   focusMode,
@@ -601,6 +602,7 @@ function WritingEditor({
 }: {
   scene?: ManuscriptNode;
   content?: SceneContent;
+  chapterTitle?: string;
   preferences: Preferences;
   typewriter: boolean;
   focusMode: boolean;
@@ -686,7 +688,11 @@ function WritingEditor({
       }
     >
       <div className="editor-title">
-        <span>{scene.title}</span>
+        <span>
+          {chapterTitle && <small>{chapterTitle}</small>}
+          {scene.title}
+        </span>
+        <em>{content?.wordCount.toLocaleString() ?? 0} words</em>
       </div>
       <EditorContent editor={editor} />
       <div className="format-popover" aria-label="Formatting">
@@ -1418,6 +1424,7 @@ function App() {
   const activeSession = sessions.find((s) => !s.endedAt);
   const scene = nodes.find((n) => n.id === sceneId);
   const content = contents.find((c) => c.sceneId === sceneId);
+  const chapter = nodes.find((n) => n.id === scene?.parentId);
   const summary = summaryId
     ? sessions.find((s) => s.id === summaryId)
     : undefined;
@@ -1944,6 +1951,7 @@ function App() {
             <WritingEditor
               scene={scene}
               content={content}
+              chapterTitle={chapter?.title}
               preferences={preferences}
               typewriter={typewriter}
               focusMode={focusMode}
